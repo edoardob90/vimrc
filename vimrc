@@ -41,6 +41,13 @@ NeoBundle 'vim-scripts/gitignore'
 NeoBundle 'JuliaLang/julia-vim'
 " easy swapping of windows
 NeoBundle 'wesQ3/vim-windowswap.git'
+" *** Below this, added by EB
+" Syntastic plugin
+NeoBundle 'vim-syntastic/syntastic.git'
+" Surround plugin for matching symbols
+NeoBundle 'tpope/vim-surround.git'
+" NERDTree filesystem explorer
+NeoBundle 'scrooloose/nerdtree.git'
 
 if v:version > 703
     " provides fuzzy completer and clang based cleverness
@@ -147,6 +154,9 @@ endif
 set cursorline
 hi CursorLine ctermbg=NONE cterm=NONE term=NONE
 hi CursorLineNr ctermfg=117 ctermbg=236  term=bold cterm=bold
+
+" GUI default font
+set guifont=Hack\ Regular:h16
 
 "------------------------------------------
 " key bindings
