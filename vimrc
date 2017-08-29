@@ -41,20 +41,24 @@ NeoBundle 'vim-scripts/gitignore'
 NeoBundle 'JuliaLang/julia-vim'
 " easy swapping of windows
 NeoBundle 'wesQ3/vim-windowswap.git'
-" *** Below this, added by EB
+
+" --- EB bundles ---
 " Syntastic plugin
 NeoBundle 'vim-syntastic/syntastic.git'
 " Surround plugin for matching symbols
-NeoBundle 'tpope/vim-surround.git'
+"NeoBundle 'tpope/vim-surround.git'
+NeoBundle 'anyakichi/vim-surround' " seems more active than above plugin
 " NERDTree filesystem explorer
 NeoBundle 'scrooloose/nerdtree.git'
+" Color scheme from Valloric repo
+NeoBundle 'Valloric/vim-valloric-colorscheme'
 
 if v:version > 703
     " provides fuzzy completer and clang based cleverness
     NeoBundle 'Valloric/YouCompleteMe', {
          \ 'build'      : {
-            \ 'mac'     : './install.sh --clang-completer',
-            \ 'unix'    : './install.sh',
+            \ 'mac'     : './install.py --clang-completer',
+            \ 'unix'    : './install.py',
             \ }
          \ }
 endif
@@ -131,6 +135,19 @@ augroup resCur
   autocmd BufWinEnter * call ResCur()
 augroup END
 
+" When you type the first tab, it will complete as much as possible, the second
+" tab hit will provide a list, the third and subsequent tabs will cycle through
+" completion options so you can complete the file without further keys
+set wildmode=longest,list,full
+" completion with menu
+set wildmenu
+
+" Sometimes, $MYVIMRC does not get set even though the vimrc is sourced
+" properly. So far, I've only seen this on Linux machines on rare occasions.
+if has("unix") && strlen($MYVIMRC) < 1
+  let $MYVIMRC=$HOME . '/.vimrc'
+endif
+
 "------------------------------------------
 " search options
 "------------------------------------------
@@ -144,9 +161,9 @@ set hlsearch
 "------------------------------------------
 set background=dark
 if has("gui_running")
-    colorscheme luna
+    colorscheme valloric
 else
-    colorscheme luna-term
+    colorscheme valloric
     set t_Co=256
 endif
 
@@ -176,7 +193,7 @@ nnoremap <leader><Space> :nohlsearch<CR>
 inoremap jk <ESC>
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>Q :wqa<CR>
-nnoremap <Leader>w :w<CR>
+nnoremap <Leader>w :w!<CR>
 
 " turn paste on
 " this ignores indentation rules when pasting
@@ -185,6 +202,14 @@ nnoremap <leader>p :set paste! paste?<CR>
 " make left and right keys cycle between tabs
 nnoremap <Right> :tabnext<CR>
 nnoremap <Left>  :tabprev<CR>
+
+" this makes vim's regex search not stupid
+nnoremap / /\v
+vnoremap / /\v
+
+" edit and source vimrc on the fly
+noremap <leader>v :e! $MYVIMRC<CR>
+noremap <silent> <leader>V :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
 "------------------------------------------
 " plugin-specific settings
