@@ -200,8 +200,8 @@ nnoremap <Leader>w :w!<CR>
 nnoremap <leader>p :set paste! paste?<CR>
 
 " make left and right keys cycle between tabs
-nnoremap <Right> :tabnext<CR>
-nnoremap <Left>  :tabprev<CR>
+nnoremap <leader><Right> :tabnext<CR>
+nnoremap <leader><Left>  :tabprev<CR>
 
 " this makes vim's regex search not stupid
 nnoremap / /\v
@@ -209,7 +209,7 @@ vnoremap / /\v
 
 " edit and source vimrc on the fly
 noremap <leader>v :e! $MYVIMRC<CR>
-noremap <silent> <leader>V :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+noremap <silent><leader>E :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
 "------------------------------------------
 " plugin-specific settings
