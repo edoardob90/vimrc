@@ -1,81 +1,59 @@
 " skip initialization for vim-tiny or vim-small.
 if 0 | endif
 
+set nocompatible
 
-"------------------------------------------
-" neobundle
-"------------------------------------------
-if has('vim_starting')
-    " turn off vi compatability
-    if &compatible
-        set nocompatible
-    endif
+"-----------------------------------------------
+" vim-plug
+" ----------------------------------------------
+" NeoBundle seems it's not going to be updated
+" so we switch to this plugin manager
 
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
+call plug#begin('~/.vim/myplugins')
 
 " --- my bundles ---
 
 " luna colorscheme
-NeoBundle 'bcumming/vim-luna'
+Plug 'bcumming/vim-luna'
 " sensible defaults
-NeoBundle 'tpope/vim-sensible'
+Plug 'tpope/vim-sensible'
 " airline status bar
-NeoBundle 'bling/vim-airline'
+Plug 'bling/vim-airline'
 " awesome git!
-NeoBundle 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 " git in the gutter
-NeoBundle 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 " use silver searcher in place of grep
-NeoBundle 'rking/ag.vim'
+Plug 'rking/ag.vim'
 " control-p for finding files
-NeoBundle 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
 " use .gitignore to filter for commands that search files
-NeoBundle 'vim-scripts/gitignore'
+Plug 'vim-scripts/gitignore'
 " support for syntax, indentation etc in Julia
-NeoBundle 'JuliaLang/julia-vim'
+Plug 'JuliaLang/julia-vim'
 " easy swapping of windows
-NeoBundle 'wesQ3/vim-windowswap.git'
+Plug 'wesQ3/vim-windowswap.git'
 
 " --- EB bundles ---
 " Syntastic plugin
-NeoBundle 'vim-syntastic/syntastic.git'
+Plug 'vim-syntastic/syntastic.git'
 " Surround plugin for matching symbols
-NeoBundle 'tpope/vim-surround.git'
+Plug 'tpope/vim-surround.git'
 " NERDTree filesystem explorer
-NeoBundle 'scrooloose/nerdtree.git'
+Plug 'scrooloose/nerdtree.git'
 " Color scheme from Valloric repo
-NeoBundle 'Valloric/vim-valloric-colorscheme'
-
-" I DON'T know how to compile this plugin and make it working!
-" if v:version > 703
-"     " provides fuzzy completer and clang based cleverness
-"     NeoBundle 'Valloric/YouCompleteMe', {
-"          \ 'build'      : {
-"             \ 'mac'     : './install.py --clang-completer',
-"             \ 'unix'    : './install.py',
-"             \ }
-"          \ }
-" endif
+Plug 'Valloric/vim-valloric-colorscheme'
 " Alternative plugin for language completion
-NeoBundle 'Shougo/neocomplete.vim'
+Plug 'Shougo/neocomplete.vim'
 " ...and snippets
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 
-call neobundle#end()
+call plug#end()
 
 " turn on file specific rules set in the path ~/.vim/after/__language__.vim
 " also required by neobundle
 filetype plugin indent on
-
-" prompt to install uninstalled bundles found on startup
-NeoBundleCheck
 
 "------------------------------------------
 " general settings
@@ -178,7 +156,10 @@ hi CursorLine ctermbg=NONE cterm=NONE term=NONE
 hi CursorLineNr ctermfg=117 ctermbg=236  term=bold cterm=bold
 
 " GUI default font
-set guifont=Hack\ Regular:h16
+if has("gui_running")
+    "set guifont=Hack\ Regular:h16
+    set gfn=Source\ Code\ Pro:h14
+endif
 
 "------------------------------------------
 " key bindings
