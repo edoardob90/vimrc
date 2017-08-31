@@ -32,15 +32,15 @@ Plug 'vim-scripts/gitignore'
 " support for syntax, indentation etc in Julia
 Plug 'JuliaLang/julia-vim'
 " easy swapping of windows
-Plug 'wesQ3/vim-windowswap.git'
+Plug 'wesQ3/vim-windowswap'
 
 " --- EB bundles ---
 " Syntastic plugin
-Plug 'vim-syntastic/syntastic.git'
+Plug 'vim-syntastic/syntastic'
 " Surround plugin for matching symbols
-Plug 'tpope/vim-surround.git'
+Plug 'tpope/vim-surround'
 " NERDTree filesystem explorer
-Plug 'scrooloose/nerdtree.git'
+Plug 'scrooloose/nerdtree'
 " Color scheme from Valloric repo
 Plug 'Valloric/vim-valloric-colorscheme'
 " Alternative plugin for language completion
