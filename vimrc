@@ -167,7 +167,8 @@ set background=dark
 if has("gui_running")
     colorscheme luna
 else
-    colorscheme valloric
+    colorscheme luna-term
+    "colorscheme vividchalk
     set t_Co=256
 endif
 
