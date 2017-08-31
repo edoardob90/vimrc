@@ -1,5 +1,9 @@
 # vimrc
 
+#### 31/08/2017
+
+MAJOR CHANGE: I switched from NeoBundle to [vim-plug](https://github.com/junegunn/vim-plug) which seems more actively developed.
+
 Organize my vim life.
 
 The aim is to have a "nice" vim experience that is portable from desktop/laptop to servers.
@@ -12,4 +16,5 @@ git clone https://github.com/edoardob90/vimrc.git .vim
 ln -s .vim/vimrc .vimrc
 vim .vimrc
 ```
-MAJOR CHANGE: I switched from NeoBundle to [vim-plug](https://github.com/junegunn/vim-plug) which seems more actively developed. 
+
+After that, reload .vimrc and :PlugInstall to install plugins.
