@@ -48,6 +48,8 @@ Plug 'Shougo/neocomplete.vim'
 " ...and snippets
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
+" Informative startup screen for VIM
+Plug 'mhinz/vim-startify'
 
 call plug#end()
 
@@ -298,4 +300,4 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " Set default Python checker
-let g:syntastic_python_checkers = ['pylint', 'python']
+let g:syntastic_python_checkers = 'python'
