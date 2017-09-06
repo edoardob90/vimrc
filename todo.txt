@@ -1,3 +1,0 @@
-- recurively check out
-    https://github.com/Shougo/neobundle.vim -> ./bundle/neobundle.vim
-- update .vimrc
