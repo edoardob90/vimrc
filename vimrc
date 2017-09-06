@@ -50,6 +50,8 @@ Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 " Informative startup screen for VIM
 Plug 'mhinz/vim-startify'
+" PLUMED syntax
+Plug 'edoardob90/vim-plumed'
 
 call plug#end()
 
