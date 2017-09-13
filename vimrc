@@ -44,16 +44,16 @@ Plug 'scrooloose/nerdtree'
 " Color scheme from Valloric repo
 Plug 'Valloric/vim-valloric-colorscheme'
 " Alternative plugin for language completion
-""Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/neocomplete.vim'
 " ...and snippets
-""Plug 'Shougo/neosnippet'
-""Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 " Informative startup screen for VIM
 ""Plug 'mhinz/vim-startify'
 " PLUMED syntax
 Plug 'edoardob90/vim-plumed'
 " Valloric YouCompleteMe
-Plug 'Valloric/YouCompleteMe'
+""Plug 'Valloric/YouCompleteMe'
 
 call plug#end()
 
@@ -304,4 +304,4 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " Set default Python checker
-let g:syntastic_python_checkers = 'python'
+let g:syntastic_python_checkers = ['python']
