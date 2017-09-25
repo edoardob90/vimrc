@@ -11,14 +11,14 @@ set nocompatible
 
 call plug#begin('~/.vim/myplugins')
 
-" --- my bundles ---
+" --- original bundles ---
 
 " luna colorscheme
 Plug 'bcumming/vim-luna'
 " sensible defaults
 Plug 'tpope/vim-sensible'
 " airline status bar
-Plug 'bling/vim-airline'
+"Plug 'bling/vim-airline'
 " awesome git!
 Plug 'tpope/vim-fugitive'
 " git in the gutter
@@ -49,11 +49,18 @@ Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 " Informative startup screen for VIM
-""Plug 'mhinz/vim-startify'
+"Plug 'mhinz/vim-startify'
 " PLUMED syntax
 Plug 'edoardob90/vim-plumed'
-" Valloric YouCompleteMe
-""Plug 'Valloric/YouCompleteMe'
+" Calendar in Vim
+Plug 'itchyny/calendar.vim'
+" alternative status bar
+" *** MUST disable vim-airline above ***
+Plug 'itchyny/lightline.vim'
+" another vim colorscheme
+Plug 'itchyny/landscape.vim'
+" underline word under cursor
+Plug 'itchyny/vim-cursorword'
 
 call plug#end()
 
