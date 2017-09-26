@@ -312,3 +312,7 @@ let g:syntastic_check_on_wq = 0
 
 " Set default Python checker
 let g:syntastic_python_checkers = ['python']
+
+" --- calendar.vim ---
+let g:calendar_date_endian="little"
+let g:calendar_google_calendar=1
