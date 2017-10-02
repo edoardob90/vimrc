@@ -17,8 +17,6 @@ call plug#begin('~/.vim/myplugins')
 Plug 'bcumming/vim-luna'
 " sensible defaults
 Plug 'tpope/vim-sensible'
-" airline status bar
-"Plug 'bling/vim-airline'
 " awesome git!
 Plug 'tpope/vim-fugitive'
 " git in the gutter
@@ -48,8 +46,6 @@ Plug 'Shougo/neocomplete.vim'
 " ...and snippets
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
-" Informative startup screen for VIM
-"Plug 'mhinz/vim-startify'
 " PLUMED syntax
 Plug 'edoardob90/vim-plumed'
 " Calendar in Vim
@@ -59,8 +55,6 @@ Plug 'itchyny/calendar.vim'
 Plug 'itchyny/lightline.vim'
 " another vim colorscheme
 Plug 'itchyny/landscape.vim'
-" underline word under cursor
-"Plug 'itchyny/vim-cursorword'
 
 call plug#end()
 
@@ -87,7 +81,8 @@ set hidden
 set iskeyword+=_,#
 
  " line numbers
-set nu
+set number
+set relativenumber
 
 " optimize macro execution by not redrawing until macro is finished
 set lazyredraw
