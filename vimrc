@@ -27,31 +27,19 @@ Plug 'rking/ag.vim'
 Plug 'kien/ctrlp.vim'
 " use .gitignore to filter for commands that search files
 Plug 'vim-scripts/gitignore'
-" support for syntax, indentation etc in Julia
-Plug 'JuliaLang/julia-vim'
-" easy swapping of windows
-Plug 'wesQ3/vim-windowswap'
 
 " --- EB bundles ---
-" Syntastic plugin
-Plug 'vim-syntastic/syntastic'
 " Surround plugin for matching symbols
 Plug 'tpope/vim-surround'
 " NERDTree filesystem explorer
 Plug 'scrooloose/nerdtree'
 " Color scheme from Valloric repo
 Plug 'Valloric/vim-valloric-colorscheme'
-" Alternative plugin for language completion
-Plug 'Shougo/neocomplete.vim'
-" ...and snippets
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
 " PLUMED syntax
 Plug 'edoardob90/vim-plumed'
 " Calendar in Vim
 Plug 'itchyny/calendar.vim'
 " alternative status bar
-" *** MUST disable vim-airline above ***
 Plug 'itchyny/lightline.vim'
 " another vim colorscheme
 Plug 'itchyny/landscape.vim'
@@ -70,6 +58,9 @@ let mapleader = "\<Space>"
 
 " syntax hilighting
 syntax on
+
+" set to auto read when a file is changed from outside
+set autoread
 
 " utf
 set encoding=utf-8
@@ -138,6 +129,15 @@ if has("unix") && strlen($MYVIMRC) < 1
   let $MYVIMRC=$HOME . '/.vimrc'
 endif
 
+" backspace
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+
+" Properly disable sound on errors on MacVim
+if has("gui_macvim")
+    autocmd GUIEnter * set vb t_vb=
+endif
+
 "------------------------------------------
 " search options
 "------------------------------------------
@@ -169,9 +169,23 @@ if has("gui_running")
     set gfn=Source\ Code\ Pro:h14
 endif
 
+" Set extra options when running in GUI mode
+if has("gui_running")
+    set guioptions-=T
+    set guioptions-=e
+    set t_Co=256
+    set guitablabel=%M\ %t
+endif
+
 "------------------------------------------
 " key bindings
 "------------------------------------------
+
+" fast saving
+nmap <leader>w :w!<CR>
+
+" :W sudo saves the file
+command W w !sudo tee % > /dev/null
 
 " hit leader then "e" to reload files that have changed outside the editor
 nnoremap <leader>e :edit<CR>
@@ -205,6 +219,66 @@ vnoremap / /\v
 noremap <leader>v :e! $MYVIMRC<CR>
 noremap <silent><leader>E :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
+" -----------------
+" Helper functions
+" -----------------
+" Returns true if paste mode is enabled
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    endif
+    return ''
+endfunction
+
+" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+   let l:currentBufNum = bufnr("%")
+   let l:alternateBufNum = bufnr("#")
+
+   if buflisted(l:alternateBufNum)
+     buffer #
+   else
+     bnext
+   endif
+
+   if bufnr("%") == l:currentBufNum
+     new
+   endif
+
+   if buflisted(l:currentBufNum)
+     execute("bdelete! ".l:currentBufNum)
+   endif
+endfunction
+
+function! CmdLine(str)
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    unmenu Foo
+endfunction 
+
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", "\\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'gv'
+        call CmdLine("Ack '" . l:pattern . "' " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
 "------------------------------------------
 " plugin-specific settings
 "------------------------------------------
@@ -223,90 +297,6 @@ else
     \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
     \ }
 endif
-
-" --- neocomplete ----
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  "return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-" AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-" --- syntastic ---
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" Set default Python checker
-let g:syntastic_python_checkers = ['python']
 
 " --- calendar.vim ---
 let g:calendar_date_endian="little"
