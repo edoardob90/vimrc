@@ -60,7 +60,7 @@ Plug 'itchyny/lightline.vim'
 " another vim colorscheme
 Plug 'itchyny/landscape.vim'
 " underline word under cursor
-Plug 'itchyny/vim-cursorword'
+"Plug 'itchyny/vim-cursorword'
 
 call plug#end()
 
