@@ -43,6 +43,8 @@ Plug 'itchyny/calendar.vim'
 Plug 'itchyny/lightline.vim'
 " another vim colorscheme
 Plug 'itchyny/landscape.vim'
+" syntax for Pandoc
+Plug 'vim-pandoc/vim-pandoc-syntax'
 
 call plug#end()
 
