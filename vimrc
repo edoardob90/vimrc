@@ -43,6 +43,9 @@ Plug 'itchyny/calendar.vim'
 Plug 'itchyny/lightline.vim'
 " another vim colorscheme
 Plug 'itchyny/landscape.vim'
+" markdown for VIM
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 
 call plug#end()
 
