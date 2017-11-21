@@ -46,6 +46,8 @@ Plug 'itchyny/landscape.vim'
 " markdown for VIM
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+" syntax for Pandoc
+Plug 'vim-pandoc/vim-pandoc-syntax'
 
 call plug#end()
 
