@@ -13,6 +13,9 @@ call plug#begin('~/.vim/myplugins')
 
 " --- PLUGINS ---
 
+" Tracking git changes
+Plug 'airblade/vim-gitgutter'
+
 " luna colorscheme
 Plug 'bcumming/vim-luna'
 
@@ -158,11 +161,10 @@ set hlsearch
 "------------------------------------------
 set background=dark
 if has("gui_running")
-    colorscheme luna
+    colorscheme nova
 else
-    colorscheme luna-term
-    "colorscheme vividchalk
     set t_Co=256
+    colorscheme nova
 endif
 
 " hilight current line by making the row number on the lhs stand out
