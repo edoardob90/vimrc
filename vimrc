@@ -11,43 +11,41 @@ set nocompatible
 
 call plug#begin('~/.vim/myplugins')
 
-" --- original bundles ---
+" --- PLUGINS ---
 
 " luna colorscheme
 Plug 'bcumming/vim-luna'
+
 " sensible defaults
 Plug 'tpope/vim-sensible'
-" awesome git!
-Plug 'tpope/vim-fugitive'
-" git in the gutter
-Plug 'airblade/vim-gitgutter'
-" use silver searcher in place of grep
-Plug 'rking/ag.vim'
+
 " control-p for finding files
 Plug 'kien/ctrlp.vim'
+
 " use .gitignore to filter for commands that search files
 Plug 'vim-scripts/gitignore'
 
-" --- EB bundles ---
 " Surround plugin for matching symbols
 Plug 'tpope/vim-surround'
-" NERDTree filesystem explorer
-Plug 'scrooloose/nerdtree'
-" Color scheme from Valloric repo
-Plug 'Valloric/vim-valloric-colorscheme'
+
 " PLUMED syntax
 Plug 'edoardob90/vim-plumed'
-" Calendar in Vim
-Plug 'itchyny/calendar.vim'
+
 " alternative status bar
 Plug 'itchyny/lightline.vim'
-" another vim colorscheme
-Plug 'itchyny/landscape.vim'
+
 " markdown for VIM
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+
 " syntax for Pandoc
 Plug 'vim-pandoc/vim-pandoc-syntax'
+
+" Nova color scheme
+Plug 'trevordmiller/nova-vim'
+
+" Fuzzy finding
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
@@ -142,6 +140,10 @@ set whichwrap+=<,>,h,l
 if has("gui_macvim")
     autocmd GUIEnter * set vb t_vb=
 endif
+
+" Maintain undo history between sessions
+set undofile
+set undodir=~/.vim/undodir
 
 "------------------------------------------
 " search options
