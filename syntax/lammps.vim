@@ -7,9 +7,9 @@
 syn clear
 
 syn keyword	lammpsOutput	log write_restart restart dump undump thermo thermo_modify thermo_style print 
-syn keyword	lammpsRead	include read read_restart read_data
+syn keyword	lammpsRead	include read read_restart read_data write_data
 syn keyword	lammpsLattice	boundary units atom_style lattice region create_box create_atoms dielectric
-syn keyword	lammpsLattice	delete_atoms change_box dimension replicate
+syn keyword	lammpsLattice	delete_atoms change_box dimension replicate displace_atoms
 syn keyword	lammpsParticle	pair_coeff pair_style pair_modify mass velocity angle_coeff angle_style
 syn keyword	lammpsParticle	atom_modify atom_style bond_coeff bond_style delete_bonds kspace_style
 syn keyword	lammpsParticle	kspace_modify dihedral_style dihedral_coeff improper_style improper_coeff
@@ -44,6 +44,7 @@ if !exists("did_lammps_syntax_inits")
   hi link lammpsOutput		Function
   hi link lammpsRepeat		Repeat
   hi link lammpsRead		Include
+  hi link lammpsWrite		Include
   hi link lammpsLattice		Typedef
   hi link lammpsParticle	Typedef
   hi link lammpsSetup		Typedef
