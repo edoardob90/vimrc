@@ -96,8 +96,8 @@ set scrolloff=10
 
 " text formatting
 set expandtab
+set softtabstop=2
 set shiftwidth=4
-set softtabstop=4
 set tabstop=4 " make real tabs 4 wide
 
 " wrap long lines
@@ -155,6 +155,10 @@ set undodir=~/.vim/undodir
 set incsearch
 " highlight matches
 set hlsearch
+" ignore case
+set ignorecase
+" ... unless you type a capital
+set smartcase
 
 "------------------------------------------
 " color scheme settings
@@ -221,8 +225,9 @@ nnoremap <leader><Right> :tabnext<CR>
 nnoremap <leader><Left>  :tabprev<CR>
 
 " this makes vim's regex search not stupid
-nnoremap / /\v
-vnoremap / /\v
+" I MUST UNDERSTAND WHAT THIS MEANS !!!
+"nnoremap / /\v
+"vnoremap / /\v
 
 " edit and source vimrc on the fly
 noremap <leader>v :e! $MYVIMRC<CR>
