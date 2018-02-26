@@ -9,9 +9,20 @@ set nocompatible
 " NeoBundle seems it's not going to be updated
 " so we switch to this plugin manager
 
+" Automatically install vim-plug and run PlugInstall if vim-plug is not found.
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin('~/.vim/myplugins')
 
 " --- PLUGINS ---
+Plug 'bluz71/vim-moonfly-colors'
+    let g:moonflySpellInverse   = 1
+    let g:moonflyCursorColor    = 1
+    let g:moonflyTerminalColors = 1
 
 " Tracking git changes
 Plug 'airblade/vim-gitgutter'
@@ -34,8 +45,9 @@ Plug 'tpope/vim-surround'
 " PLUMED syntax
 Plug 'edoardob90/vim-plumed'
 
-" alternative status bar
-Plug 'itchyny/lightline.vim'
+" two alternative status bar
+" *DISABLED* Plug 'itchyny/lightline.vim'
+Plug 'bluz71/vim-moonfly-statusline'
 
 " markdown for VIM
 Plug 'junegunn/goyo.vim'
@@ -59,8 +71,6 @@ filetype plugin indent on
 "------------------------------------------
 " general settings
 "------------------------------------------
-" set leader to space
-let mapleader = "\<Space>"
 
 " syntax hilighting
 syntax on
@@ -163,13 +173,15 @@ set smartcase
 "------------------------------------------
 " color scheme settings
 "------------------------------------------
+set t_Co=256
 set background=dark
-if has("gui_running")
-    colorscheme nova
-else
-    set t_Co=256
-    colorscheme nova
-endif
+colorscheme moonfly
+"if has("gui_running")
+"    colorscheme moonfly
+"else
+"    set t_Co=256
+"    colorscheme moonfly
+"endif
 
 " hilight current line by making the row number on the lhs stand out
 set cursorline
@@ -178,7 +190,6 @@ hi CursorLineNr ctermfg=117 ctermbg=236  term=bold cterm=bold
 
 " GUI default font
 if has("gui_running")
-    "set guifont=Hack\ Regular:h16
     set gfn=Source\ Code\ Pro:h14
 endif
 
@@ -186,19 +197,21 @@ endif
 if has("gui_running")
     set guioptions-=T
     set guioptions-=e
-    set t_Co=256
     set guitablabel=%M\ %t
 endif
 
 "------------------------------------------
 " key bindings
 "------------------------------------------
+" set leader to space
+let mapleader = "\<Space>"
+let maplocalleader = ","
 
 " fast saving
 nmap <leader>w :w!<CR>
 
 " :W sudo saves the file
-command W w !sudo tee % > /dev/null
+command! W w !sudo tee % > /dev/null
 
 " hit leader then "e" to reload files that have changed outside the editor
 nnoremap <leader>e :edit<CR>
@@ -212,9 +225,9 @@ nnoremap <leader><Space> :nohlsearch<CR>
 " use the combination jk to exit insert mode
 " ... easier than reaching up for the escape key
 inoremap jk <ESC>
-nnoremap <Leader>q :q<CR>
-nnoremap <Leader>Q :wqa<CR>
-nnoremap <Leader>w :w!<CR>
+nnoremap <leader>q :q<CR>
+nnoremap <leader>Q :wqa<CR>
+nnoremap <leader>w :w!<CR>
 
 " turn paste on
 " this ignores indentation rules when pasting
@@ -237,6 +250,38 @@ noremap <silent><leader>E :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'v
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
+" Y should behave like C and D, yank from cursor till end of line
+noremap Y y$
+
+" Center search when navigating
+noremap n nzz
+noremap N Nzz
+
+" Confirm quit
+"noremap <C-q> :confirm qall<CR>
+
+" Delete previous word when in insert mode via Ctrl-b
+inoremap <C-b> <C-O>diw
+
+" Yank and put helpers.
+noremap <leader>y        :let @0=getreg('*')<CR>
+noremap <leader>p        "0]p
+noremap <leader>P        "0]P
+
+" ----------------------------------
+"  Window management mapping
+" ----------------------------------
+nnoremap <silent> <leader>s  :split<CR>
+nnoremap <silent> <leader>-  :new<CR>
+nnoremap <silent> <leader>v  :vsplit<CR>
+nnoremap <silent> <leader>t  :$tabnew<CR>
+
+" ------------------------
+"  Function key mappings
+" ------------------------
+nnoremap <localleader>5 :call Spelling()<CR>
+nnoremap <localleader>0 :call Listing()<CR>
 
 " -----------------
 " Helper functions
@@ -293,6 +338,54 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
+
+" Toggle spelling mode and add the dictionary to the completion list of
+" sources if spelling mode has been entered, otherwise remove it when
+" leaving spelling mode.
+"
+function! Spelling()
+    setlocal spell!
+    if &spell
+        set complete+=kspell
+        echo "Spell mode enabled"
+    else
+        set complete-=kspell
+        echo "Spell mode disabled"
+    endif
+endfunction
+
+" Toggle special characters list display.
+"
+function! Listing()
+    if &filetype == "go"
+        if g:listMode == 1
+            set listchars=eol:$,tab:>-,trail:-
+            highlight SpecialKey ctermfg=12 guifg=#78c2ff
+            let g:listMode = 0
+        else
+            set listchars=tab:\¦\ 
+            highlight SpecialKey ctermfg=235 guifg=#262626
+            let g:listMode = 1
+        endif
+        return
+    endif
+
+    " Note, Neovim has a Whitespace highlight group, Vim does not.
+    if has("nvim")
+        if g:listMode == 1
+            set listchars=eol:$,tab:>-,trail:-
+            highlight Whitespace ctermfg=12 guifg=#78c2ff
+            let g:listMode = 0
+        else
+            set listchars=tab:\ \ ,trail:-
+            highlight Whitespace ctermfg=235 guifg=#262626
+            let g:listMode = 1
+        endif
+    else
+        set list!
+    endif
+endfunction
+
 "------------------------------------------
 " plugin-specific settings
 "------------------------------------------
@@ -311,7 +404,3 @@ else
     \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
     \ }
 endif
-
-" --- calendar.vim ---
-let g:calendar_date_endian="little"
-let g:calendar_google_calendar=1
