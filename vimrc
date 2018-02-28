@@ -71,12 +71,16 @@ filetype plugin indent on
 "------------------------------------------
 " general settings
 "------------------------------------------
-
 " syntax hilighting
 syntax on
 
-" set to auto read when a file is changed from outside
-set autoread
+set autoindent        " indented text
+set autoread          " pick up external changes to files
+set autowrite         " write files when navigating with :next/:previous
+set background=dark   " default background for color schemes
+set belloff=all       " bells are annoying
+set breakindent       " wrap long lines *with* indentation
+set noswapfile        " avoid creating .swp files
 
 " utf
 set encoding=utf-8
@@ -108,7 +112,14 @@ set scrolloff=10
 set expandtab
 set softtabstop=2
 set shiftwidth=4
-set tabstop=4 " make real tabs 4 wide
+set tabstop=4         " make real tabs 4 wide
+set showbreak=\\\\\   " use this to wrap long lines
+set foldmethod=indent
+set matchpairs=(:),{:},[:]
+
+" splitting windows
+set splitbelow        " Split below current window
+set splitright        " Split window to the right
 
 " wrap long lines
 set wrap
@@ -155,8 +166,16 @@ if has("gui_macvim")
 endif
 
 " Maintain undo history between sessions
-set undofile
-set undodir=~/.vim/undodir
+" Default directory in local /tmp
+let s:undoDir = "/tmp/.undodir_" . $USER
+if !isdirectory(s:undoDir)
+    call mkdir(s:undoDir, "", 0700)
+endif
+let &undodir=s:undoDir
+set undofile          " Maintain undo history
+
+set t_Co=256 " set terminal colors
+
 
 "------------------------------------------
 " search options
@@ -170,18 +189,6 @@ set ignorecase
 " ... unless you type a capital
 set smartcase
 
-"------------------------------------------
-" color scheme settings
-"------------------------------------------
-set t_Co=256
-set background=dark
-colorscheme moonfly
-"if has("gui_running")
-"    colorscheme moonfly
-"else
-"    set t_Co=256
-"    colorscheme moonfly
-"endif
 
 " hilight current line by making the row number on the lhs stand out
 set cursorline
@@ -245,6 +252,7 @@ nnoremap <leader><Left>  :tabprev<CR>
 " edit and source vimrc on the fly
 noremap <leader>v :e! $MYVIMRC<CR>
 noremap <silent><leader>E :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+set noswapfile        " avoid creating .swp files
 
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
@@ -403,4 +411,15 @@ else
   let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
     \ }
+endif
+
+
+"------------------------------------------
+" color scheme settings
+"------------------------------------------
+colorscheme moonfly
+if has("gui_running")
+    colorscheme moonfly
+else
+    colorscheme moonfly
 endif
