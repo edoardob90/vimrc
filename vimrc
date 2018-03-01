@@ -114,7 +114,7 @@ set softtabstop=2
 set shiftwidth=4
 set tabstop=4         " make real tabs 4 wide
 set showbreak=\\\\\   " use this to wrap long lines
-set foldmethod=indent
+set foldmethod=syntax " fold according to syntax (if available)
 set matchpairs=(:),{:},[:]
 
 " splitting windows
@@ -175,6 +175,33 @@ let &undodir=s:undoDir
 set undofile          " Maintain undo history
 
 set t_Co=256 " set terminal colors
+
+"------------------------------------------
+" terminal configuration
+"------------------------------------------
+if !has("gui_running") && !has("nvim")
+    " Note, Neovim cursor shape and 24-bit true colors work without any
+    " help required; the following 'help' is for terminal Vim only. 
+
+    " if tmux
+    if &term == 'screen-256color'
+        " Change the cursor to an I-beam when in insert mode.
+        let &t_SI = "\<Esc>Ptmux;\<Esc>\e[6 q\<Esc>\\"
+        let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
+        " Make CTRL-Left/Right work inside tmux.
+        execute "set <xRight>=\e[1;*C"
+        execute "set <xLeft>=\e[1;*D"
+        " Make Vim *set termguicolors* work inside tmux.
+        set t_8b=[48;2;%lu;%lu;%lum
+        set t_8f=[38;2;%lu;%lu;%lum
+    " else not tmux
+    else
+        " Change the cursor to an I-beam when in insert mode.
+        let &t_SI = "\e[6 q"
+        let &t_EI = "\e[2 q"
+    endif
+endif
+
 
 
 "------------------------------------------
@@ -417,9 +444,5 @@ endif
 "------------------------------------------
 " color scheme settings
 "------------------------------------------
+"colorscheme nova
 colorscheme moonfly
-if has("gui_running")
-    colorscheme moonfly
-else
-    colorscheme moonfly
-endif
