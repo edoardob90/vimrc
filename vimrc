@@ -130,14 +130,7 @@ set wrap
 " :20  :  up to 20 lines of command-line history will be remembered
 set viminfo='10,\"100,:20,%,n~/.viminfo
 
-" now restore position based on info saved in viminfo
-function! ResCur()
-  if line("'\"") <= line("$")
-    normal! g`"
-    return 1
-  endif
-endfunction
-
+" restore position based on info saved in viminfo
 augroup resCur
   autocmd!
   autocmd BufWinEnter * call ResCur()
@@ -321,6 +314,15 @@ nnoremap <localleader>0 :call Listing()<CR>
 " -----------------
 " Helper functions
 " -----------------
+" Check where we left off before closing
+function! ResCur()
+  if line("'\"") <= line("$")
+    normal! g`"
+    return 1
+  endif
+endfunction
+
+
 " Returns true if paste mode is enabled
 function! HasPaste()
     if &paste
