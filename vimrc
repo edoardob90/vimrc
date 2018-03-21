@@ -64,6 +64,9 @@ Plug 'trevordmiller/nova-vim'
 " Fuzzy finding
 Plug 'junegunn/fzf.vim'
 
+" Enhanced support for writing LaTeX files
+Plug 'lervag/vimtex'
+
 call plug#end()
 
 " turn on file specific rules set in the path ~/.vim/after/__language__.vim
