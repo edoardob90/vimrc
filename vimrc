@@ -24,6 +24,8 @@ Plug 'bluz71/vim-moonfly-colors'
     let g:moonflyCursorColor    = 1
     let g:moonflyTerminalColors = 1
 
+Plug 'dracula/vim', { 'as': 'dracula' }
+
 " Tracking git changes
 Plug 'airblade/vim-gitgutter'
 
@@ -447,4 +449,5 @@ endif
 " color scheme settings
 "------------------------------------------
 "colorscheme nova
-colorscheme moonfly
+"colorscheme moonfly
+color dracula
