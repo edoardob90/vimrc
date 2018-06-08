@@ -58,9 +58,6 @@ Plug 'junegunn/limelight.vim'
 " syntax for Pandoc
 Plug 'vim-pandoc/vim-pandoc-syntax'
 
-" Nova color scheme
-Plug 'trevordmiller/nova-vim'
-
 " Fuzzy finding
 Plug 'junegunn/fzf.vim'
 
@@ -263,7 +260,7 @@ nnoremap <leader>w :w!<CR>
 
 " turn paste on
 " this ignores indentation rules when pasting
-nnoremap <leader>p :set paste! paste?<CR>
+nnoremap <leader>P :set paste! paste?<CR>
 
 " make left and right keys cycle between tabs
 nnoremap <leader><Right> :tabnext<CR>
@@ -298,9 +295,9 @@ noremap N Nzz
 inoremap <C-b> <C-O>diw
 
 " Yank and put helpers.
-noremap <leader>y        :let @0=getreg('*')<CR>
-noremap <leader>p        "0]p
-noremap <leader>P        "0]P
+"noremap <leader>y        :let @0=getreg('*')<CR>
+"noremap <leader>p        "0]p
+"noremap <leader>P        "0]P
 
 " ----------------------------------
 "  Window management mapping
