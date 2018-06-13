@@ -19,18 +19,9 @@ endif
 call plug#begin('~/.vim/myplugins')
 
 " --- PLUGINS ---
-Plug 'bluz71/vim-moonfly-colors'
-    let g:moonflySpellInverse   = 1
-    let g:moonflyCursorColor    = 1
-    let g:moonflyTerminalColors = 1
-
-Plug 'dracula/vim', { 'as': 'dracula' }
 
 " Tracking git changes
 Plug 'airblade/vim-gitgutter'
-
-" luna colorscheme
-Plug 'bcumming/vim-luna'
 
 " sensible defaults
 Plug 'tpope/vim-sensible'
@@ -63,6 +54,16 @@ Plug 'junegunn/fzf.vim'
 
 " Enhanced support for writing LaTeX files
 Plug 'lervag/vimtex'
+
+" ***PLUGIN FOR COLORS***
+Plug 'morhetz/gruvbox'
+Plug 'bluz71/vim-moonfly-colors'
+    let g:moonflySpellInverse   = 1
+    let g:moonflyCursorColor    = 1
+    let g:moonflyTerminalColors = 1
+
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'bcumming/vim-luna'
 
 call plug#end()
 
@@ -272,7 +273,7 @@ nnoremap <leader><Left>  :tabprev<CR>
 "vnoremap / /\v
 
 " edit and source vimrc on the fly
-noremap <leader>v :e! $MYVIMRC<CR>
+noremap <leader>V :e! $MYVIMRC<CR>
 noremap <silent><leader>E :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 set noswapfile        " avoid creating .swp files
 
@@ -450,4 +451,11 @@ endif
 "------------------------------------------
 "colorscheme nova
 "colorscheme moonfly
-color dracula
+"colorscheme dracula
+set termguicolors
+if &term == 'screen-256color'
+    let g:gruvbox_italic=0 " tmux doesn't support itali (or I don't know how to enable it)
+else
+    let g:gruvbox_italic=1
+endif
+colorscheme gruvbox
