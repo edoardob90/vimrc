@@ -180,7 +180,7 @@ if !has("gui_running") && !has("nvim")
     " help required; the following 'help' is for terminal Vim only. 
 
     " if tmux
-    if &term == 'screen-256color'
+    if &term == 'screen-256color' || &term == 'screen'
         " Change the cursor to an I-beam when in insert mode.
         let &t_SI = "\<Esc>Ptmux;\<Esc>\e[6 q\<Esc>\\"
         let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
@@ -451,9 +451,10 @@ endif
 if exists('+termguicolors')
     set termguicolors
 endif
-if &term=='xterm-256color' " enable italic only if using correct terminfo profile
-    let g:gruvbox_italic=1
-else
+" enable italic only if using correct terminfo profile
+if &term == 'screen-256color' || &term == 'screen'
     let g:gruvbox_italic=0
+else
+    let g:gruvbox_italic=1
 endif
 colorscheme gruvbox
