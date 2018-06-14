@@ -237,9 +237,6 @@ endif
 let mapleader = "\<Space>"
 let maplocalleader = ","
 
-" fast saving
-nmap <leader>w :w!<CR>
-
 " :W sudo saves the file
 command! W w !sudo tee % > /dev/null
 
@@ -275,7 +272,6 @@ nnoremap <leader><Left>  :tabprev<CR>
 " edit and source vimrc on the fly
 noremap <leader>V :e! $MYVIMRC<CR>
 noremap <silent><leader>E :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
-set noswapfile        " avoid creating .swp files
 
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
@@ -452,10 +448,12 @@ endif
 "colorscheme nova
 "colorscheme moonfly
 "colorscheme dracula
-set termguicolors
-if &term == 'screen-256color'
-    let g:gruvbox_italic=0 " tmux doesn't support itali (or I don't know how to enable it)
-else
+if exists('+termguicolors')
+    set termguicolors
+endif
+if &term=='xterm-256color' " enable italic only if using correct terminfo profile
     let g:gruvbox_italic=1
+else
+    let g:gruvbox_italic=0
 endif
 colorscheme gruvbox
