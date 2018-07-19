@@ -180,7 +180,7 @@ if !has("gui_running") && !has("nvim")
     " help required; the following 'help' is for terminal Vim only. 
 
     " if tmux
-    if &term == 'screen-256color'
+    if &term == 'screen-256color' || &term == 'screen'
         " Change the cursor to an I-beam when in insert mode.
         let &t_SI = "\<Esc>Ptmux;\<Esc>\e[6 q\<Esc>\\"
         let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
