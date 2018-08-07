@@ -56,12 +56,12 @@ Plug 'junegunn/fzf.vim'
 Plug 'lervag/vimtex'
 
 " ***PLUGIN FOR COLORS***
+Plug 'chriskempson/base16-vim'
 Plug 'morhetz/gruvbox'
 Plug 'bluz71/vim-moonfly-colors'
     let g:moonflySpellInverse   = 1
     let g:moonflyCursorColor    = 1
     let g:moonflyTerminalColors = 1
-
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'bcumming/vim-luna'
 
@@ -451,16 +451,17 @@ endif
 "------------------------------------------
 " color scheme settings
 "------------------------------------------
-"colorscheme nova
-"colorscheme moonfly
-"colorscheme dracula
+" set gui colors for vim terminal (if VIM supports it)
 if exists('+termguicolors')
     set termguicolors
 endif
-" enable italic only if using correct terminfo profile
-if &term == 'screen-256color' || &term == 'screen'
-    let g:gruvbox_italic=0
-else
+
+" this is a workaround for tmux that seems to not support italic
+if &term=='xterm-256color' " enable italic only if using correct terminfo profile
     let g:gruvbox_italic=1
+else
+    let g:gruvbox_italic=0
 endif
-colorscheme gruvbox
+
+" set the colorscheme
+colorscheme base16-phd
