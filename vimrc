@@ -131,7 +131,13 @@ set wrap
 " '10  :  marks will be remembered for up to 10 previously edited files
 " "100 :  will save up to 100 lines for each register
 " :20  :  up to 20 lines of command-line history will be remembered
-set viminfo='10,\"100,:20,%,n~/.viminfo
+if !has("nvim")
+    set viminfo='10,\"100,:20,%,n~/.viminfo
+else
+    " Do nothing to use nvim default
+    " or something like:
+    "   set viminfo+=n~/.shada
+endif
 
 " restore position based on info saved in viminfo
 augroup resCur
@@ -220,7 +226,7 @@ hi CursorLineNr ctermfg=117 ctermbg=236  term=bold cterm=bold
 
 " GUI default font
 if has("gui_running")
-    set gfn=Source\ Code\ Pro:h14
+    set gfn=Menlo:h18
 endif
 
 " Set extra options when running in GUI mode
