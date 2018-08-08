@@ -39,7 +39,6 @@ Plug 'tpope/vim-surround'
 Plug 'edoardob90/vim-plumed'
 
 " two alternative status bar
-" *DISABLED* Plug 'itchyny/lightline.vim'
 Plug 'bluz71/vim-moonfly-statusline'
 
 " markdown for VIM
@@ -55,15 +54,11 @@ Plug 'junegunn/fzf.vim'
 " Enhanced support for writing LaTeX files
 Plug 'lervag/vimtex'
 
-" ***PLUGIN FOR COLORS***
-Plug 'chriskempson/base16-vim'
-Plug 'morhetz/gruvbox'
-Plug 'bluz71/vim-moonfly-colors'
-    let g:moonflySpellInverse   = 1
-    let g:moonflyCursorColor    = 1
-    let g:moonflyTerminalColors = 1
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'bcumming/vim-luna'
+" Colorschemes
+Plug 'chriskempson/base16-vim' " this is not needed, actually (see bottom section)
+
+" Scratch space
+Plug 'mtth/scratch.vim'
 
 call plug#end()
 
