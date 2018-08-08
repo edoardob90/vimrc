@@ -463,5 +463,10 @@ else
     let g:gruvbox_italic=0
 endif
 
+" Base16-shell --> see ~/.dotfile/zshrc or config in $DOTFILES
 " set the colorscheme
-colorscheme base16-phd
+"colorscheme base16-phd <<< old setting
+if filereadable(expand("~/.vimrc_background"))
+    "let base16colorspace=256 " probably this is not needed
+    source ~/.vimrc_background
+endif
