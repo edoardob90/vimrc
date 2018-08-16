@@ -12,16 +12,10 @@
 " -------------------
 "
 "
-" Disable old feature compatibility
+" Disable old features compatibility
 set nocompatible
 
 " Set up my plugin manager
-" Automatically install vim-plug and run PlugInstall if vim-plug is not found.
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
 
 call plug#begin('~/.vim/myplugins')
 
@@ -46,9 +40,8 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
 " Fuzzy finding
-" clone in a different dir and install both the bin and the .fzf.{bash,zsh}
-" config files
-Plug 'junegunn/fzf.vim', { 'dir': '~/.dotfiles/fzf', 'do': './install --all' }
+"Plug 'junegunn/fzf.vim', { 'dir': '~/.dotfiles/fzf', 'do': './install --all' }
+Plug '~/.dotfiles/fzf'
 
 " syntax for Pandoc
 Plug 'vim-pandoc/vim-pandoc-syntax'
@@ -64,6 +57,13 @@ Plug 'lervag/vimtex'
 
 " Scratch space
 Plug 'mtth/scratch.vim'
+
+" Base16 coloschemes
+Plug 'chriskempson/base16-vim'
+
+" ---------------
+" END OF PLUGINS
+" ---------------
 call plug#end()
 
 
