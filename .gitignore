@@ -8,3 +8,6 @@
 bundle/*
 
 .vim
+
+# vimrc_background could be platform-dependent
+vimrc_background
