@@ -40,8 +40,8 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
 " Fuzzy finding
-"Plug 'junegunn/fzf.vim', { 'dir': '~/.dotfiles/fzf', 'do': './install --all' }
 Plug '~/.dotfiles/fzf'
+Plug 'junegunn/fzf.vim'
 
 " syntax for Pandoc
 Plug 'vim-pandoc/vim-pandoc-syntax'
