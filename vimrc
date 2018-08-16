@@ -287,7 +287,7 @@ noremap n nzz
 noremap N Nzz
 
 " Confirm quit
-"noremap <C-q> :confirm qall<CR>
+noremap <C-q> :confirm qall<CR>
 
 " Delete previous word when in insert mode via Ctrl-b
 inoremap <C-b> <C-O>diw
@@ -300,10 +300,14 @@ inoremap <C-b> <C-O>diw
 " ----------------------------------
 "  Window management mapping
 " ----------------------------------
+"  Splitting and tabbing
 nnoremap <silent> <leader>s  :split<CR>
 nnoremap <silent> <leader>-  :new<CR>
 nnoremap <silent> <leader>v  :vsplit<CR>
 nnoremap <silent> <leader>t  :$tabnew<CR>
+
+"  Resizing panes
+"nnoremap <silent> <localleader>+ :exe "resize " . 
 
 " ------------------------
 "  Function key mappings
