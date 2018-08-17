@@ -29,13 +29,13 @@ Plug 'tpope/vim-sensible'
 " Surround plugin for matching symbols
 Plug 'tpope/vim-surround'
 
-" PLUMED syntax (to be checked!!!)
+" PLUMED syntax (does it work?)
 Plug 'edoardob90/vim-plumed'
 
 " two alternative status bar
 Plug 'bluz71/vim-moonfly-statusline'
 
-" markdown syntax highlight
+" distraction free writing with vim
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
