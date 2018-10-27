@@ -30,9 +30,9 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 
 " PLUMED syntax (does it work?)
-Plug 'edoardob90/vim-plumed'
+"Plug 'edoardob90/vim-plumed'
 
-" two alternative status bar
+" alternative status bar
 Plug 'bluz71/vim-moonfly-statusline'
 
 " distraction free writing with vim
@@ -60,6 +60,10 @@ Plug 'mtth/scratch.vim'
 
 " Base16 coloschemes
 Plug 'chriskempson/base16-vim'
+
+" Vimwiki
+" create and edit wiki-styles personal content
+Plug 'vimwiki/vimwiki'
 
 " ---------------
 " END OF PLUGINS
