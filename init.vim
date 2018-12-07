@@ -1,6 +1,7 @@
 " Neovim init script
 "
 " Date: 16 aug 2018
+" Author: Edoardo Baldi (edoardob90@gmail.com)
 "
 " Purpose: clean and purge the old vimrc script, which is sourced as a whole
 " by Neovim right now.
@@ -33,7 +34,8 @@ Plug 'tpope/vim-surround'
 "Plug 'edoardob90/vim-plumed'
 
 " alternative status bar
-Plug 'bluz71/vim-moonfly-statusline'
+"Plug 'bluz71/vim-moonfly-statusline'
+Plug 'itchyny/lightline.vim'
 
 " distraction free writing with vim
 Plug 'junegunn/goyo.vim'
@@ -89,6 +91,7 @@ set background=dark   " default background for color schemes
 set belloff=all       " bells are annoying
 set breakindent       " wrap long lines *with* indentation
 set noswapfile        " avoid creating .swp files
+set noshowmode        " don't show modes, useless with alternative status bars plugins
 
 " utf
 set encoding=utf-8
@@ -435,3 +438,21 @@ if filereadable(expand("~/.vimrc_background"))
     "let base16colorspace=256 " usually this is not needed
     source ~/.vimrc_background
 endif
+
+"------------------------------------------------
+" plugin specific settings (when and if needed)
+"------------------------------------------------
+" make neovim compatible with vimtex plugin
+" this reguires 'neovim-remote' installed via pip
+let g:vimtex_compiler_progname = 'nvr'
+
+" vim-wiki settings
+let my_wiki = {}
+let my_wiki.path = '~/vimwiki'
+let my_wiki.syntax = 'markdown'
+let my_wiki.ext = '.wiki'
+let my_wiki.nested_syntaxes = {'ruby': 'ruby', 'python': 'python', 'c++': 'cpp', 'sh': 'sh', 'bash': 'sh', 'racket': 'racket'}
+" this sets the options
+let g:vimwiki_list = [my_wiki]
+"   alternating colors for different heading levels
+let g:vimwiki_hl_headers = 1
