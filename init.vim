@@ -125,8 +125,8 @@ set softtabstop=2
 set shiftwidth=4
 set tabstop=4         " make real tabs 4 wide
 set showbreak=\\\\\   " use this to wrap long lines
-set foldmethod=syntax " fold according to syntax (if available)
-set matchpairs=(:),{:},[:]
+set foldmethod=manual " manual folding
+set matchpairs=(:),{:},[:],<:>
 
 " splitting windows
 set splitbelow        " Split below current window
