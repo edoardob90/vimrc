@@ -306,12 +306,22 @@ noremap <C-q> :confirm qall<CR>
 inoremap <C-b> <C-O>diw
 
 " ----------------------------------
-"  Window management mapping
+"  Window management
 " ----------------------------------
+"set wh=30
+"set wiw=30
+"set winminheight=1
+"set winminwidth=10
+
 nnoremap <silent> <leader>s  :split<CR>
 nnoremap <silent> <leader>-  :new<CR>
 nnoremap <silent> <leader>v  :vsplit<CR>
 nnoremap <silent> <leader>t  :$tabnew<CR>
+
+nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
+nnoremap <silent><leader>+ :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
+nnoremap <silent><leader>- :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
 
 " -----------------
 " Helper functions
