@@ -67,6 +67,11 @@ Plug 'chriskempson/base16-vim'
 " create and edit wiki-styles personal content
 Plug 'vimwiki/vimwiki'
 
+" C++/C auto-complete
+" read CAREFULLY the installation page, because it can be tricky:
+" https://github.com/Valloric/YouCompleteMe/blob/master/README.md#mac-os-x
+Plug 'Valloric/YouCompleteMe'
+
 " ---------------
 " END OF PLUGINS
 " ---------------
@@ -466,3 +471,7 @@ let my_wiki.nested_syntaxes = {'ruby': 'ruby', 'python': 'python', 'c++': 'cpp',
 let g:vimwiki_list = [my_wiki]
 "   alternating colors for different heading levels
 let g:vimwiki_hl_headers = 1
+
+" YouCompleteMe
+" setting compilation flags manually
+"let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
