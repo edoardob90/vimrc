@@ -30,8 +30,16 @@ Plug 'tpope/vim-sensible'
 " Surround plugin for matching symbols
 Plug 'tpope/vim-surround'
 
-" PLUMED syntax (does it work?)
-"Plug 'edoardob90/vim-plumed'
+" Commentary (comment text object)
+Plug 'tpope/vim-commentary'
+
+" Custom text object
+" the base plugin
+Plug 'kana/vim-textobj-user'
+" LaTeX math & other text objects
+Plug 'rbonvall/vim-textobj-latex'
+" markdown text objects
+Plug 'coachshea/vim-textobj-markdown'
 
 " alternative status bar
 "Plug 'bluz71/vim-moonfly-statusline'
@@ -67,10 +75,16 @@ Plug 'chriskempson/base16-vim'
 " create and edit wiki-styles personal content
 Plug 'vimwiki/vimwiki'
 
+" === Autocomplete plugins ===
+" It's SAFE to use only one of the following
+" ============================
 " C++/C auto-complete
 " read CAREFULLY the installation page, because it can be tricky:
 " https://github.com/Valloric/YouCompleteMe/blob/master/README.md#mac-os-x
-Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
+"
+" Deoplete
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " ---------------
 " END OF PLUGINS
@@ -472,6 +486,12 @@ let g:vimwiki_list = [my_wiki]
 "   alternating colors for different heading levels
 let g:vimwiki_hl_headers = 1
 
+" === Autocomplete plugins specific settings ===
 " YouCompleteMe
 " setting compilation flags manually
-"let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+" let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+
+ Deoplete
+let g:deoplete#enable_at_startup = 1
+" set up auto-completion for vim-tex plugin
+call deoplete#custom#var('omni', 'input_patterns', {'tex': g:vimtex#re#deoplete})
