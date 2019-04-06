@@ -491,7 +491,7 @@ let g:vimwiki_hl_headers = 1
 " setting compilation flags manually
 " let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 
- Deoplete
+" Deoplete
 let g:deoplete#enable_at_startup = 1
 " set up auto-completion for vim-tex plugin
 call deoplete#custom#var('omni', 'input_patterns', {'tex': g:vimtex#re#deoplete})
