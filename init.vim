@@ -95,12 +95,11 @@ call plug#end()
 "------------------------------------------
 " general settings
 "------------------------------------------
-" turn on file specific rules set in the path ~/.vim/after/__language__.vim
-" also required by neobundle
-filetype plugin indent on
+" NOT NEEDED because vim-plug sets this
+"filetype plugin indent on
 
-" syntax hilighting
-syntax on
+" NOT NEEDED because vim-plug sets this
+"syntax on
 
 " now the general settings (tabs, spaces, bells, backgrounds...)
 set autoindent        " indented text
@@ -474,6 +473,9 @@ endif
 " make neovim compatible with vimtex plugin
 " this reguires 'neovim-remote' installed via pip
 let g:vimtex_compiler_progname = 'nvr'
+
+" allow creation of temporary wikis by registering a custom extensions
+let g:vimwiki_ext2syntax = {'.wflow': 'markdown', '.mdwiki': 'markdown'}
 
 " vim-wiki settings
 let my_wiki = {}
