@@ -488,12 +488,30 @@ let g:vimwiki_list = [my_wiki]
 "   alternating colors for different heading levels
 let g:vimwiki_hl_headers = 1
 
-" === Autocomplete plugins specific settings ===
+" Autocomplete plugins specific settings
+" --------------
 " YouCompleteMe
+" --------------
 " setting compilation flags manually
 " let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 
+" ---------
 " Deoplete
+" ---------
 let g:deoplete#enable_at_startup = 1
+
+" following lines are taken from here: https://www.gregjs.com/vim/2016/configuring-the-deoplete-asynchronous-keyword-completion-plugin-with-tern-for-vim/
+if !exists('g:deoplete#omni#input_patterns')
+    let g:deoplete#omni#input_patterns = {}
+endif
+" actually disable auto-completion
+" let g:deoplete#disable_auto_complete = 1
+
+" automatically close the scratch window at the top of the vim window on finishing a complete or leave insert
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" setup TAB to complete and cycle through suggested
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
 " set up auto-completion for vim-tex plugin
 call deoplete#custom#var('omni', 'input_patterns', {'tex': g:vimtex#re#deoplete})
