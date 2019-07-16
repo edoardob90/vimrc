@@ -75,6 +75,9 @@ Plug 'chriskempson/base16-vim'
 " create and edit wiki-styles personal content
 Plug 'vimwiki/vimwiki'
 
+" LAMMPS syntax (manually managed in ~/.vim/lammps-syntax)
+Plug '~/.vim/lammps-syntax'
+
 " === Autocomplete plugins ===
 " It's SAFE to use only one of the following
 " ============================
