@@ -22,7 +22,7 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
-### Configure
+## Configure
 
 - Create the `init.vim` file for Neovim in the proper folder. In Unix, this should be `${HOME}/.config/nvim/init.vim`.
 - Clone the this repo in `${HOME}/.vim`, for example.
@@ -34,3 +34,7 @@ ln -s ${HOME}/.vim/init.vim ${HOME}/.config/nvim/
 ```
 
 - Open nvim and issue `:PlugInstall` to install plugins.
+
+### Warnings
+
+- If using Neovim, the plugin "Deoplete" (for autocompletion) requires **at least `nvim` 0.3.0**.
