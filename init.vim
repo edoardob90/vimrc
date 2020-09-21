@@ -41,20 +41,12 @@ Plug 'rbonvall/vim-textobj-latex'
 " markdown text objects
 Plug 'coachshea/vim-textobj-markdown'
 
-" alternative status bar
-"Plug 'bluz71/vim-moonfly-statusline'
+" Status bar
 Plug 'itchyny/lightline.vim'
 
 " distraction free writing with vim
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-
-" Fuzzy finding
-Plug '~/.dotfiles/fzf'
-Plug 'junegunn/fzf.vim'
-
-" syntax for Pandoc
-Plug 'vim-pandoc/vim-pandoc-syntax'
 
 " GIT plugins:
 " Tracking git changes
@@ -62,30 +54,16 @@ Plug 'airblade/vim-gitgutter'
 " Git wrapper
 Plug 'tpope/vim-fugitive'
 
-" Enhanced support for writing LaTeX files
-Plug 'lervag/vimtex'
-
 " Scratch space
 Plug 'mtth/scratch.vim'
 
-" Base16 coloschemes
+" Colorschemes
 Plug 'chriskempson/base16-vim'
 
-" Vimwiki
-" create and edit wiki-styles personal content
-Plug 'vimwiki/vimwiki'
-
-" LAMMPS syntax (manually managed in ~/.vim/lammps-syntax)
-Plug '~/.vim/lammps-syntax'
+" Various language packs for syntax
+Plug 'sheerun/vim-polyglot'
 
 " === Autocomplete plugins ===
-" It's SAFE to use only one of the following
-" ============================
-" C++/C auto-complete
-" read CAREFULLY the installation page, because it can be tricky:
-" https://github.com/Valloric/YouCompleteMe/blob/master/README.md#mac-os-x
-"Plug 'Valloric/YouCompleteMe'
-"
 " Deoplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
@@ -308,7 +286,6 @@ nnoremap <leader><Right> :tabnext<CR>
 nnoremap <leader><Left>  :tabprev<CR>
 
 " this makes vim's regex search not stupid
-" I MUST UNDERSTAND WHAT THIS MEANS !!!
 "nnoremap / /\v
 "vnoremap / /\v
 
@@ -333,6 +310,9 @@ noremap <C-q> :confirm qall<CR>
 
 " Delete previous word when in insert mode via Ctrl-b
 inoremap <C-b> <C-O>diw
+
+" Create the `tags` file in current folder (MUST install `ctags` beforehand)
+command! MakeTags !ctags -R .
 
 " ----------------------------------
 "  Window management
@@ -512,10 +492,6 @@ endif
 "------------------------------------------------
 " plugin specific settings (when and if needed)
 "------------------------------------------------
-" make neovim compatible with vimtex plugin
-" this reguires 'neovim-remote' installed via pip
-let g:vimtex_compiler_progname = 'nvr'
-
 " allow creation of temporary wikis by registering a custom extensions
 let g:vimwiki_ext2syntax = {'.wflow': 'markdown', '.mdwiki': 'markdown'}
 
@@ -542,18 +518,23 @@ let g:vimwiki_hl_headers = 1
 " ---------
 let g:deoplete#enable_at_startup = 1
 
-" following lines are taken from here: https://www.gregjs.com/vim/2016/configuring-the-deoplete-asynchronous-keyword-completion-plugin-with-tern-for-vim/
-if !exists('g:deoplete#omni#input_patterns')
-    let g:deoplete#omni#input_patterns = {}
+" following lines are taken from here
+" https://www.gregjs.com/vim/2016/configuring-the-deoplete-asynchronous-keyword-completion-plugin-with-tern-for-vim
+if !exists('g:deoplete#omni_patterns')
+    let g:deoplete#omni_patterns = {}
 endif
+
 " actually disable auto-completion
 " let g:deoplete#disable_auto_complete = 1
 
 " automatically close the scratch window at the top of the vim window on finishing a complete or leave insert
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
+augroup omnifuncs
+    autocmd!
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+augroup end
+
 " setup TAB to complete and cycle through suggested
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-" set up auto-completion for vim-tex plugin
-call deoplete#custom#var('omni', 'input_patterns', {'tex': g:vimtex#re#deoplete})
