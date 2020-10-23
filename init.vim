@@ -63,6 +63,19 @@ Plug 'chriskempson/base16-vim'
 " Various language packs for syntax
 Plug 'sheerun/vim-polyglot'
 
+" Markdown
+Plug 'reedes/vim-pencil'
+Plug 'reedes/vim-colors-pencil'
+
+" Wolfram Language syntax
+Plug 'arnoudbuzing/wolfram-vim'
+
+" Modern replacement for matchit
+Plug 'andymass/vim-matchup'
+
+" Auto-pair delimiters
+Plug 'tmsvg/pear-tree'
+
 " === Autocomplete plugins ===
 " Deoplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -487,31 +500,33 @@ endif
 if filereadable(expand("~/.vimrc_background"))
     "let base16colorspace=256 " usually this is not needed
     source ~/.vimrc_background
+else
+   " set manually a color scheme
+   colorscheme pencil
 endif
 
 "------------------------------------------------
 " plugin specific settings (when and if needed)
 "------------------------------------------------
-" allow creation of temporary wikis by registering a custom extensions
-let g:vimwiki_ext2syntax = {'.wflow': 'markdown', '.mdwiki': 'markdown'}
 
-" vim-wiki settings
-let my_wiki = {}
-let my_wiki.path = '~/vimwiki'
-let my_wiki.syntax = 'markdown'
-let my_wiki.ext = '.wiki'
-let my_wiki.nested_syntaxes = {'ruby': 'ruby', 'python': 'python', 'c++': 'cpp', 'sh': 'sh', 'bash': 'sh', 'racket': 'racket'}
-" this sets the options
-let g:vimwiki_list = [my_wiki]
-"   alternating colors for different heading levels
-let g:vimwiki_hl_headers = 1
+" ---------------------
+" Auto-pair: pear-tree
+" ---------------------
+let g:pear_tree_pair = {
+            \ '(': {'closer': ')'},
+            \ '[': {'closer': ']'},
+            \ '{': {'closer': '}'},
+            \ "'": {'closer': "'"},
+            \ '"': {'closer': '"'},
+            \ '<|': {'closer': '|>'},
+            \ '“': {'closer': '”'},
+            \ '‘': {'closer': '’'}
+            \ }
 
-" Autocomplete plugins specific settings
-" --------------
-" YouCompleteMe
-" --------------
-" setting compilation flags manually
-" let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+" Smart pairing
+let g:pear_tree_smart_openers = 1
+let g:pear_tree_smart_closers = 1
+let g:pear_tree_smart_backspace = 0
 
 " ---------
 " Deoplete
@@ -538,3 +553,13 @@ augroup end
 
 " setup TAB to complete and cycle through suggested
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+" ------------
+"  Vim Pencil
+" ------------
+let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd,md call pencil#init()
+  autocmd FileType text         call pencil#init({'wrap': 'hard'})
+augroup END

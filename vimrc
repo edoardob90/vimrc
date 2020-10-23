@@ -35,9 +35,6 @@ Plug 'vim-scripts/gitignore'
 " Surround plugin for matching symbols
 Plug 'tpope/vim-surround'
 
-" PLUMED syntax
-Plug 'edoardob90/vim-plumed'
-
 " two alternative status bar
 Plug 'bluz71/vim-moonfly-statusline'
 
@@ -59,6 +56,10 @@ Plug 'chriskempson/base16-vim' " this is not needed, actually (see bottom sectio
 
 " Scratch space
 Plug 'mtth/scratch.vim'
+
+" Markdown stuff
+" vim-pencil
+Plug 'reedes/vim-pencil'
 
 call plug#end()
 
