@@ -73,9 +73,6 @@ Plug 'arnoudbuzing/wolfram-vim'
 " Modern replacement for matchit
 Plug 'andymass/vim-matchup'
 
-" Auto-pair delimiters
-Plug 'tmsvg/pear-tree'
-
 " === Autocomplete plugins ===
 " Deoplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -286,8 +283,12 @@ nnoremap <leader><Space> :nohlsearch<CR>
 " use the combination jk to exit insert mode
 " ... easier than reaching up for the escape key
 inoremap jk <ESC>
+
+" quickly exit
 nnoremap <leader>q :q<CR>
+" save everything and exit
 nnoremap <leader>Q :wqa<CR>
+" force write
 nnoremap <leader>w :w!<CR>
 
 " turn paste on
@@ -508,25 +509,6 @@ endif
 "------------------------------------------------
 " plugin specific settings (when and if needed)
 "------------------------------------------------
-
-" ---------------------
-" Auto-pair: pear-tree
-" ---------------------
-let g:pear_tree_pair = {
-            \ '(': {'closer': ')'},
-            \ '[': {'closer': ']'},
-            \ '{': {'closer': '}'},
-            \ "'": {'closer': "'"},
-            \ '"': {'closer': '"'},
-            \ '<|': {'closer': '|>'},
-            \ '“': {'closer': '”'},
-            \ '‘': {'closer': '’'}
-            \ }
-
-" Smart pairing
-let g:pear_tree_smart_openers = 1
-let g:pear_tree_smart_closers = 1
-let g:pear_tree_smart_backspace = 0
 
 " ---------
 " Deoplete
