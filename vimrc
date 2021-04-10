@@ -61,6 +61,11 @@ Plug 'mtth/scratch.vim'
 " vim-pencil
 Plug 'reedes/vim-pencil'
 
+" Deoplete
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+
 call plug#end()
 
 " turn on file specific rules set in the path ~/.vim/after/__language__.vim
@@ -431,6 +436,7 @@ endfunction
 "------------------------------------------
 " plugin-specific settings
 "------------------------------------------
+"
 
 " --- ctrlp ---
 " configure ctrlp to use ag for searching
@@ -447,6 +453,29 @@ else
     \ }
 endif
 
+" Deoplete
+let g:deoplete#enable_at_startup = 1
+
+" following lines are taken from here
+" https://www.gregjs.com/vim/2016/configuring-the-deoplete-asynchronous-keyword-completion-plugin-with-tern-for-vim
+if !exists('g:deoplete#omni_patterns')
+    let g:deoplete#omni_patterns = {}
+endif
+
+" actually disable auto-completion
+"let g:deoplete#disable_auto_complete = 1
+
+" automatically close the scratch window at the top of the vim window on finishing a complete or leave insert
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+augroup omnifuncs
+    autocmd!
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+augroup end
+
+" setup TAB to complete and cycle through suggested
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 "------------------------------------------
 " color scheme settings
